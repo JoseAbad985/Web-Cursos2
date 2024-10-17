@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Curso - Web Cursos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <h1>Agregar Curso</h1>
+        <!-- Barra de navegación -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html">Cursos</a></li>
+                <li><a href="agregar_curso.html">Agregar Curso</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección principal -->
+    <main>
+        <section id="add-course">
+            <h2>Agregar Nuevo Curso</h2>
+            <form id="course-form">
+                <div>
+                    <label for="course-name">Nombre del Curso:</label>
+                    <input type="text" id="course-name" name="courseName" required>
+                </div>
+                <div>
+                    <label for="instructor-name">Nombre del Instructor:</label>
+                    <input type="text" id="instructor-name" name="instructorName" required>
+                </div>
+                <div>
+                    <label for="start-date">Fecha de Inicio:</label>
+                    <input type="date" id="start-date" name="startDate" required>
+                </div>
+                <div>
+                    <label for="duration">Duración (en semanas):</label>
+                    <input type="number" id="duration" name="duration" min="1" required>
+                </div>
+                <div>
+                    <label for="description">Descripción:</label>
+                    <textarea id="description" name="description" rows="5" required></textarea>
+                </div>
+                <button type="submit">Agregar Curso</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2023 Web Cursos. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Enlazar el archivo JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

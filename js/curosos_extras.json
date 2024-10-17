@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Curso de HTML y CSS",
+        "instructor": "María López",
+        "startDate": "2023-12-01",
+        "duration": "6 semanas",
+        "description": "Aprende a diseñar y desarrollar sitios web con HTML5 y CSS3."
+    },
+    {
+        "name": "Curso de React",
+        "instructor": "Carlos García",
+        "startDate": "2024-01-15",
+        "duration": "10 semanas",
+        "description": "Domina el desarrollo de aplicaciones web modernas con React."
+    }
+]

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Cursos</title>
+    <!-- Enlazar el archivo CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <h1>Web Cursos</h1>
+        <!-- Barra de navegación -->
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Cursos</a></li>
+                <li><a href="#">Agregar Curso</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección principal -->
+    <main>
+        <section id="course-list">
+            <h2>Cursos Disponibles</h2>
+            <div id="courses">
+                <!-- Los cursos se cargarán aquí dinámicamente -->
+            </div>
+        </section>
+
+        <div class="course">
+            <h3>Nombre del Curso</h3>
+            <p><strong>Profesor:</strong> Nombre del Profesor</p>
+            <p><strong>Fecha de Inicio:</strong> 01/01/2023</p>
+            <p><strong>Duración:</strong> 10 semanas</p>
+            <button class="details-btn">Ver más detalles</button>
+            <div class="course-details" style="display: none;">
+                <p>Descripción detallada del curso...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2023 Web Cursos. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Enlazar el archivo JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
