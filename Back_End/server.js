@@ -1,59 +1,38 @@
 const express = require('express');
-const path = require('path');
-const cors = require('cors'); // Importar cors
 const app = express();
-const PORT = 3000;
+const bodyParser = require('body-parser');
 
-// Habilitar CORS
-app.use(cors());
+app.use(bodyParser.json());
 
-const courses = [
+let courses = [
     {
         id: 1,
         name: 'Curso de JavaScript',
+        instructorId: 101,
         instructor: 'Juan Pérez',
-        startDate: '2023-11-01',
+        startDate: '2023-01-01',
         duration: '8 semanas',
-        description: 'Aprende los fundamentos de JavaScript, el lenguaje más popular para desarrollo web.'
-    },
-    // Puedes agregar más cursos aquí
+        description: 'Aprende los fundamentos de JavaScript, el lenguaje más popular para desarrollo web.',
+        fullDescription: 'Descripción completa del curso de JavaScript.',
+        requirements: 'Conocimientos básicos de programación.',
+        price: '100 USD'
+    }
 ];
 
-// Servir archivos estáticos desde Front_End
-app.use(express.static(path.join(__dirname, '../Front_End')));
-
-// Ruta principal para servir el index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Front_End/index.html'));
-});
-
-// API para obtener detalles del curso
-app.get('/api/courses/:id', (req, res) => {
-    const courseId = parseInt(req.params.id);
-    const course = courses.find(c => c.id === courseId);
-
-    if (course) {
-        res.json(course);
-    } else {
-        res.status(404).send({ error: 'Curso no encontrado' });
-    }
-});
-
-// Iniciar servidor
-app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
-});
-
+// Endpoint para obtener todos los cursos
 app.get('/api/courses', (req, res) => {
-    res.json([
-        {
-            id: 1,
-            name: "Curso de JavaScript",
-            instructor: "Juan Pérez",
-            startDate: "2023-01-01",
-            duration: "8 semanas",
-            description: "Aprende los fundamentos de JavaScript, el lenguaje más popular para desarrollo web."
-        },
-        // Puedes agregar más cursos aquí
-    ]);
+    res.json(courses);
+});
+
+// Endpoint para agregar un curso nuevo
+app.post('/api/courses', (req, res) => {
+    const newCourse = req.body;
+    newCourse.id = courses.length + 1;
+    courses.push(newCourse);
+    res.status(201).json(newCourse);
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

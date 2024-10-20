@@ -1,38 +1,97 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleccionamos todos los botones con la clase 'details-btn'
-    const detailsBtns = document.querySelectorAll('.details-btn');
+    const storedCourses = localStorage.getItem('courses');
+    if (storedCourses) {
+        renderCourses(JSON.parse(storedCourses));
+    } else {
+        fetchAndStoreCourses();
+    }
 
-    // Iteramos sobre cada botón y le añadimos un evento click
-    detailsBtns.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            // Verificar si ya se están mostrando los detalles
-            const courseDiv = button.closest('.course');
-            const detailsDiv = courseDiv.querySelector('.course-details');
-
-            if (detailsDiv.style.display === 'none' || !detailsDiv.style.display) {
-                // Realizar la solicitud a la API para obtener los detalles del curso
-                fetch(`http://localhost:3000/api/courses/${index + 1}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Mostrar los detalles obtenidos de la API
-                        detailsDiv.innerHTML = `
-                            <p><strong>Descripción:</strong> ${data.description}</p>
-                            <p><strong>Duración:</strong> ${data.duration}</p>
-                        `;
-                        detailsDiv.style.display = 'block';
-                        button.textContent = 'Ocultar detalles';
-                    })
-                    .catch(error => {
-                        console.error('Error al obtener los detalles del curso:', error);
-                        detailsDiv.innerHTML = '<p>Error al cargar los detalles del curso.</p>';
-                        detailsDiv.style.display = 'block';
-                        button.textContent = 'Ocultar detalles';
-                    });
-            } else {
-                // Ocultar los detalles si están visibles
-                detailsDiv.style.display = 'none';
-                button.textContent = 'Ver más detalles';
-            }
+    // Configurar el formulario para agregar un nuevo curso
+    const addCourseForm = document.querySelector('#add-course-form');
+    if (addCourseForm) {
+        addCourseForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newCourse = {
+                name: document.querySelector('#course-name').value,
+                instructor: document.querySelector('#course-instructor').value,
+                startDate: document.querySelector('#course-start-date').value,
+                duration: document.querySelector('#course-duration').value,
+                description: document.querySelector('#course-description').value,
+                fullDescription: 'Descripción completa no disponible',
+                requirements: 'No disponible',
+                price: 'No disponible'
+            };
+            addCourse(newCourse);
         });
-    });
+    }
 });
+
+function fetchAndStoreCourses() {
+    fetch('http://localhost:3000/api/courses')
+        .then(response => response.json())
+        .then(courses => {
+            localStorage.setItem('courses', JSON.stringify(courses));
+            renderCourses(courses);
+        })
+        .catch(error => {
+            console.error('Error al obtener los cursos:', error);
+        });
+}
+
+function addCourse(course) {
+    fetch('http://localhost:3000/api/courses', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(course)
+    })
+        .then(response => response.json())
+        .then(newCourse => {
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            courses.push(newCourse);
+            localStorage.setItem('courses', JSON.stringify(courses));
+            renderCourses(courses);
+        })
+        .catch(error => {
+            console.error('Error al agregar el curso:', error);
+        });
+}
+
+function renderCourses(courses) {
+    const coursesContainer = document.querySelector('#courses-container');
+    if (coursesContainer) {
+        coursesContainer.innerHTML = '';
+        courses.forEach(course => {
+            const courseDiv = document.createElement('div');
+            courseDiv.classList.add('course');
+            courseDiv.innerHTML = `
+                <h3>${course.name}</h3>
+                <p><strong>Instructor:</strong> ${course.instructor}</p>
+                <p><strong>Fecha de Inicio:</strong> ${course.startDate}</p>
+                <p><strong>Duración:</strong> ${course.duration}</p>
+                <p>${course.description}</p>
+                <button class="details-btn">Ver más detalles</button>
+                <div class="course-details" style="display: none;">
+                    <p><strong>Descripción Completa:</strong> ${course.fullDescription}</p>
+                    <p><strong>Requisitos:</strong> ${course.requirements}</p>
+                    <p><strong>Precio:</strong> ${course.price}</p>
+                </div>
+            `;
+            coursesContainer.appendChild(courseDiv);
+
+            // Configurar el botón para mostrar/ocultar detalles
+            const detailsBtn = courseDiv.querySelector('.details-btn');
+            const detailsDiv = courseDiv.querySelector('.course-details');
+            detailsBtn.addEventListener('click', () => {
+                if (detailsDiv.style.display === 'none') {
+                    detailsDiv.style.display = 'block';
+                    detailsBtn.textContent = 'Ocultar detalles';
+                } else {
+                    detailsDiv.style.display = 'none';
+                    detailsBtn.textContent = 'Ver más detalles';
+                }
+            });
+        });
+    }
+}

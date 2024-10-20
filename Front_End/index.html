@@ -6,11 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Cursos</title>
-    <!-- Enlazar el archivo CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Encabezado -->
+    
     <header>
         <div class="logo">
             <h1>Web Cursos</h1>
@@ -25,7 +24,7 @@
         </nav>
     </header>
 
-    <!-- Sección principal -->
+
     <main>
         <section id="course-info-section">
             <div id="course-info">
@@ -42,34 +41,22 @@
             </div>
         </section>
         
-        <section id="course-list">
-            <h2>Cursos Disponibles</h2>
-            <div id="courses" class="course-container">
-                <!-- Los cursos se cargarán aquí dinámicamente como tarjetas flotantes -->
-                <div class="course" id="course1">
-                    <h3>Nombre del Curso</h3>
-                    <p>Profesor: Nombre del Profesor</p>
-                    <p>Fecha de Inicio: 01/01/2023</p>
-                    <p>Duración: 10 semanas</p>
-                    <button class="details-btn">Ver más detalles</button>
-                    <div class="course-details"></div> <!-- Contenedor para la descripción -->
-                  </div>
-            </div>
+        <section id="courses-container">
+            <!-- Aquí se renderizan los cursos -->
         </section>
 
-        <div class="course-details"></div>
+        
+        
+
 
     </main>
-
-    <!-- Pie de página -->
+    <script src="js/app.js" defer></script>
+    
     <footer>
         <p>&copy; 2023 Web Cursos. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Enlazar el archivo JavaScript -->
     
-
-
-    <button id="test-api">Probar API</button>
 </body>
 </html>
+<script src="js/app.js" defer></script>

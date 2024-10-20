@@ -1,36 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Obtenemos los cursos desde la API
-    fetch('http://localhost:3000/api/courses')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al obtener la lista de cursos');
-            }
-            return response.json();
-        })
-        .then(courses => {
-            displayCourses(courses);
-        })
-        .catch(error => {
-            console.error('Error al obtener los cursos:', error);
-        });
+    const storedCourses = localStorage.getItem('courses');
+    if (storedCourses) {
+        renderCourses(JSON.parse(storedCourses));
+    } else {
+        fetchAndStoreCourses(); // Cargar los datos desde el servidor si no están en localStorage
+    }
 });
 
-function displayCourses(courses) {
-    const coursesContainer = document.getElementById('courses-container');
+function renderCourses(courses) {
+    const coursesContainer = document.querySelector('#courses-container');
     coursesContainer.innerHTML = '';
 
     courses.forEach(course => {
-        const courseDiv = document.createElement('div');
-        courseDiv.classList.add('course-card');
-
-        courseDiv.innerHTML = `
-            <h3>${course.name}</h3>
-            <p><strong>Instructor:</strong> ${course.instructor}</p>
-            <p><strong>Fecha de Inicio:</strong> ${course.startDate}</p>
-            <p><strong>Duración:</strong> ${course.duration}</p>
-            <p>${course.description}</p>
+        const courseCard = document.createElement('div');
+        courseCard.classList.add('course-card');
+        courseCard.innerHTML = `
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${course.name}</h5>
+                    <p class="card-text"><strong>Instructor:</strong> ${course.instructorDetails ? course.instructorDetails.name : course.instructor}</p>
+                    <p class="card-text"><strong>Fecha de Inicio:</strong> ${course.startDate}</p>
+                    <p class="card-text"><strong>Duración:</strong> ${course.duration}</p>
+                    <p class="card-text">${course.description}</p>
+                </div>
+            </div>
         `;
-
-        coursesContainer.appendChild(courseDiv);
+        coursesContainer.appendChild(courseCard);
     });
 }
