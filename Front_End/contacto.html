@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Cursos Online</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="about.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-container">
+            <h1>Contáctanos</h1>
+            <p>Si tienes alguna pregunta, no dudes en enviarnos un mensaje utilizando el siguiente formulario.</p>
+            
+            <form id="contactForm" onsubmit="return validateForm()">
+                <label for="name">Nombre completo:</label>
+                <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" placeholder="tuemail@dominio.com" required>
+
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+                <button type="submit">Enviar mensaje</button>
+            </form>
+
+            <div id="formResponse"></div>
+        </section>
+    </main>
+
+    
+
+    <footer>
+        <p>&copy; 2024 Cursos Online. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
+

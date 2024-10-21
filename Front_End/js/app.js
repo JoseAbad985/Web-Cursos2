@@ -95,3 +95,38 @@ function renderCourses(courses) {
         });
     }
 }
+
+
+function validateForm() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const formResponse = document.getElementById('formResponse');
+
+    // Validar que todos los campos estén llenos
+    if (name === "" || email === "" || message === "") {
+        formResponse.innerHTML = "Por favor, completa todos los campos.";
+        formResponse.style.color = 'red';
+        return false;
+    }
+
+    // Validar formato de correo electrónico
+    if (!validateEmail(email)) {
+        formResponse.innerHTML = "Por favor, introduce un correo electrónico válido.";
+        formResponse.style.color = 'red';
+        return false;
+    }
+
+    // Simular el envío del formulario
+    formResponse.innerHTML = "¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.";
+    formResponse.style.color = 'green';
+    
+    // Limpiar formulario después del envío
+    document.getElementById('contactForm').reset();
+    return false; // Evita el recargo de la página
+}
+
+function validateEmail(email) {
+    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return re.test(String(email).toLowerCase());
+}
